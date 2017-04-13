@@ -1,4 +1,4 @@
 # ResumeProj
-For an API Endpoint to output resume as JSON
+For an API Endpoint to output a JSON file.
 
-This is a work in progress. It currently reads a JSON file and outputs it as JSON.
+This a work in progress.
