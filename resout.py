@@ -1,22 +1,28 @@
 import json
 import sys
-import os
 
-from flask import Flask
+from flask import Flask, request
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return 'Please mention a name.'
 
-@app.route('/<candidate>')
-def usern(candidate):
-    with open(candidate) as json_data:
-        resume_data = json.load(json_data)
-        return(json.dumps(resume_data, indent=4))
+@app.route('/resume')
+def resume():
+    try:   
+        candidateName = request.args.get('name')
+        resumeSection = request.args.get('section')
+        with open(candidateName) as json_data:
+            resume_data = json.load(json_data)
+            if resumeSection:
+                return(json.dumps(resume_data[resumeSection]))
+            else:
+                return(json.dumps(resume_data))
+    except:
+        return('Incorrect query format')
 
 if __name__ == "__main__":
-#    app.run()
 	port = int(os.environ.get('PORT', 5000))
 	app.run(host='0.0.0.0', port=port)
 
