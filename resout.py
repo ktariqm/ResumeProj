@@ -1,5 +1,5 @@
 import json
-import sys
+import os
 
 from flask import Flask, request
 app = Flask(__name__)
@@ -10,7 +10,7 @@ def index():
 
 @app.route('/resume')
 def resume():
-    try:   
+    try:
         candidateName = request.args.get('name')
         resumeSection = request.args.get('section')
         with open(candidateName) as json_data:
@@ -23,6 +23,5 @@ def resume():
         return('Incorrect query format')
 
 if __name__ == "__main__":
-	port = int(os.environ.get('PORT', 5000))
-	app.run(host='0.0.0.0', port=port)
-
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
